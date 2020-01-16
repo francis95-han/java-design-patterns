@@ -7,30 +7,39 @@ categories: Creational
 tags:
  - Gang of Four
 ---
+abstract-factory 工厂设计模式
 
-## Also known as
-Kit
+## Also known as 也被称为
 
-## Intent
+Kit 工具
+
+## Intent 目的
+
 Provide an interface for creating families of related or dependent
-objects without specifying their concrete classes.
+objects without specifying their concrete classes.  
+提供一个接口来创建相关或依赖对象的族，而不指定它们的具体类。
 
-## Explanation
-Real world example
+## Explanation 解释
 
-> To create a kingdom we need objects with common theme. Elven kingdom needs an Elven king, Elven castle and Elven army whereas Orcish kingdom needs an Orcish king, Orcish castle and Orcish army. There is a dependency between the objects in the kingdom.
+Real world example  
+真实世界的例子  
+> To create a kingdom we need objects with common theme. Elven kingdom needs an Elven king, Elven castle and Elven army whereas Orcish kingdom needs an Orcish king, Orcish castle and Orcish army. There is a dependency between the objects in the kingdom.  
+> 我们需要共同主体的对象来创建一个王国。精灵王国需要一个精灵王，精灵城堡和精灵部队。然而，兽人王国需要一个兽人王，兽人城堡和兽人部队。王国中有着对象之间的依赖关系。
 
-In plain words
+In plain words  
+通俗地说
+> A factory of factories; a factory that groups the individual but related/dependent factories together without specifying their concrete classes.  
+>许多个工厂中的一个，这个工厂能够将抽象但是相互关联（依赖）的工厂的相关特征组合起来，但不用制定实体类
 
-> A factory of factories; a factory that groups the individual but related/dependent factories together without specifying their concrete classes.
+Wikipedia says  
+维基百科说
+> The abstract factory pattern provides a way to encapsulate a group of individual factories that have a common theme without specifying their concrete classes  
+> 抽象工厂模式提供了一种封装的一群个别但却有相同主题的工厂的方式，而这种模式不用指定他们的实体类。
 
-Wikipedia says
-
-> The abstract factory pattern provides a way to encapsulate a group of individual factories that have a common theme without specifying their concrete classes
-
-**Programmatic Example**
+**Programmatic Example 编程案例**
 
 Translating the kingdom example above. First of all we have some interfaces and implementation for the objects in the kingdom
+将上述的王国进行翻译。首先，我们有一些王国里对象的接口和实现
 
 ```java
 public interface Castle {
@@ -43,7 +52,7 @@ public interface Army {
   String getDescription();
 }
 
-// Elven implementations ->
+// Elven implementations -> 精灵实现
 public class ElfCastle implements Castle {
   static final String DESCRIPTION = "This is the Elven castle!";
   @Override
@@ -66,11 +75,12 @@ public class ElfArmy implements Army {
   }
 }
 
-// Orcish implementations similarly...
+// Orcish implementations similarly... 兽人实现同上
 
 ```
 
-Then we have the abstraction and implementations for the kingdom factory
+Then we have the abstraction and implementations for the kingdom factory  
+然后我们有了王国工厂的抽象和实现
 
 ```java
 public interface KingdomFactory {
@@ -104,7 +114,8 @@ public class OrcKingdomFactory implements KingdomFactory {
 }
 ```
 
-Now we have our abstract factory that lets us make family of related objects i.e. Elven kingdom factory creates Elven castle, king and army etc.
+Now we have our abstract factory that lets us make family of related objects i.e. Elven kingdom factory creates Elven castle, king and army etc.  
+现在我们有了抽象工厂，它可以让我们创建一个相关联实例家族。精灵王国工厂创建了精灵城堡、国王和军队等。
 
 ```java
 var factory = new ElfKingdomFactory();
@@ -112,9 +123,9 @@ var castle = factory.createCastle();
 var king = factory.createKing();
 var army = factory.createArmy();
 
-castle.getDescription();  // Output: This is the Elven castle!
-king.getDescription(); // Output: This is the Elven king!
-army.getDescription(); // Output: This is the Elven Army!
+castle.getDescription();  // Output: This is the Elven castle! 这是精灵城堡
+king.getDescription(); // Output: This is the Elven king! 这是精灵王
+army.getDescription(); // Output: This is the Elven Army! 这是精灵部队
 ```
 
 Now, we can design a factory for our different kingdom factories. In this example, we created FactoryMaker, responsible for returning an instance of either ElfKingdomFactory or OrcKingdomFactory.  
