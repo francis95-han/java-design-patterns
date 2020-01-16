@@ -5,9 +5,7 @@ folder: strategy
 permalink: /patterns/strategy/
 categories: Behavioral
 tags:
- - Java
- - Difficulty-Beginner
- - Gang Of Four
+ - Gang of Four
 ---
 #Strategy Pattern 策略设计模式
 ## Also known as
